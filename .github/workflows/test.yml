@@ -25,7 +25,8 @@ jobs:
 
       - name: Run Tests
         run: |
-          python tests/tests.py  # Replace with your actual analysis script path
+          python tests/tests.py
+          
       - name: Test with pytest
             run: |
               pip3 freeze | grep pytest
