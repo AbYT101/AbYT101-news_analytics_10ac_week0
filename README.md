@@ -7,7 +7,7 @@ This repository contains code for analyzing news data, including exploratory dat
 
 ## Project Structure
 
-    - data/: Contains the datasets used for analysis, including data.csv, domains_location.csv, and traffic_data.csv.
+    - data/: Contains the datasets used for analysis, including data.csv, rating.csv, and traffic.csv.
     - notebooks/: Jupyter notebooks for conducting analysis and visualizations.
     - src/: Python source code for data loading, preprocessing, and analysis.
     - requirements.txt: List of Python dependencies required to run the code.
