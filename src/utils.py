@@ -27,46 +27,29 @@ def find_top_websites(data,url_column='url',top=10):
     return top_domains
 
 def find_top_ten_websites_traffic(data, top = 10):
-    # Calculate traffic counts for each website
-    website_traffic_counts = data.groupby('Domain')['GlobalRank'].min()
+    sorted = data.sort_values('GlobalRank')
 
-    # Get the top and bottom ten websites
-    top_ten_websites_traffic = website_traffic_counts.nlargest(10)
+    # Filter the top 10 websites
+    top_ten_websites_traffic = sorted['Domain'].head(10)
 
-    top_domains = top_ten_websites_traffic.head(top)
-    return top_domains
+    return top_ten_websites_traffic
 
-def find_top_country_domain_counts(data):
+def find_top_country_with_domain_counts(data, domain):
 
-    # Calculate the count of domains for each country
-    country_domain_counts = data['Country'].value_counts()
+    merged_data = data.merge(domain[['SourceCommonName', 'Country']], left_on='domain', right_on='SourceCommonName', how='left')
+    merged_data = merged_data.drop(columns='SourceCommonName')
+    top_ten_countries = merged_data['Country'].value_counts().head(10)
 
-    # Get the top and bottom ten countries
-    top_ten_countries = country_domain_counts.head(10)
     return top_ten_countries
 
-def find_countries_with_many_articles(data):
-    # Extract mentions of countries from the article content
-    countries = ["Africa", "US", "China", "EU", "Russia", "Ukraine", "Middle East"]  # List of countries to search for
+def find_countries_with_many_articles(data, domain):
+    # Countries that have many articles written about them
+    countries = domain['Country'].unique()
+    category = data['category'].value_counts()
+    country_categories = category[category.index.isin(countries)]
+    
+    return country_categories.head(10)
 
-    # Initialize counts for each country
-    country_counts = {country: 0 for country in countries}
-
-    # Iterate over each article and count mentions of countries
-    for content in data['content']:
-        for country in countries:
-            # Count occurrences of the country in the content
-            country_counts[country] += len(re.findall(r'\b{}\b'.format(country), str(content), re.IGNORECASE))
-
-    # Convert counts to DataFrame for easier manipulation
-    country_counts_df = pd.DataFrame.from_dict(country_counts, orient='index', columns=['Count'])
-
-    # Calculate the count of domains for each country
-    country_domain_counts = data['Country'].value_counts()
-
-    # Get the top and bottom ten countries
-    top_ten_countries = country_domain_counts.head(10)
-    return top_ten_countries
 
 def find_african_countries_with_website_reporting_content(data):
     # Define the African countries
@@ -89,3 +72,22 @@ def find_african_countries_with_website_reporting_content(data):
     top_ten_african_countries = african_country_counts_df.nlargest(10, 'Count')
 
     return top_ten_african_countries
+
+
+def find_highest_count_of_positive_sentiment(data):
+    # Websites with the highest count of positive sentiment news articles
+    positive = data[data['title_sentiment'] == 'Positive']['source_name'].value_counts().head(10)
+
+    return positive
+
+def find_highest_count_of_neutral_sentiment(data):
+    # Websites with the highest count of neutral sentiment news articles
+    neutral = data[data['title_sentiment'] == 'Neutral']['source_name'].value_counts().head(10)
+
+    return neutral
+
+def find_highest_count_of_negative_sentiment(data):
+    # Websites with the highest count of Negative sentiment news articles
+    negative = data[data['title_sentiment'] == 'Negative']['source_name'].value_counts().head(10)
+
+    return negative
