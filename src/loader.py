@@ -1,53 +1,33 @@
-import csv
 import argparse
-import os
-import io
-import shutil
-import copy
-from datetime import datetime
-from pick import pick
-from time import sleep
+
+# from datetime import datetime
+# from pick import pick
+# from time import sleep
+import pandas as pd
 
 
-
-# Create wrapper classes for using news dataset in place of news
+# Create wrapper classes for using news_sdk in place of newser
 class NewsDataLoader:
     '''
-     
+    a class that will load news related datasets when provided path
+    
     '''
-    def __init__(self, path):
+    def __init__(self):
         '''
-        path: path to the news exported data folder
+        data: Dictionary to store loaded data
         '''
-        self.path = path
-        self.data = self.get_data()
-        self.traffic = self.get_traffic()
-        self.rating = self.get_rating()
+        self.data = {}
     
+    def load_data(self,path):
+        if(path not in self.data):
+            self.data[path] = pd.read_csv(path)
+        return self.data[path]
 
-    def get_data(self):
-        '''
-        write a function to get all the data from the csv file
-        '''
-        with open(os.path.join(self.path, 'data.csv'), 'r') as f:
-            data = csv.reader(f)
+   
 
-        return data
-    
-    def get_traffic(self):
-        '''
-        write a function to get all the traffic from the csv file
-        '''
-        with open(os.path.join(self.path, 'traffic.csv'), 'r') as f:
-            traffic = csv.reader(f)
 
-        return traffic
 
-    def get_rating(self):
-        '''
-        write a function to get all the rating from the csv file
-        '''
-        with open(os.path.join(self.path, 'rating.csv'), 'r') as f:
-            rating = csv.reader(f)
-
-        return rating
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Export news history')
+    parser.add_argument('--zip', help="Name of a zip file to import")
+    args = parser.parse_args()
