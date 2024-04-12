@@ -1,14 +1,9 @@
-import os
-import sys
-import glob
-import json
-import datetime
-from collections import Counter
-from collections import Counter
 
 import pandas as pd
 from matplotlib import pyplot as plt
-import seaborn as sns
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 import re
 
 
@@ -91,3 +86,26 @@ def find_highest_count_of_negative_sentiment(data):
     negative = data[data['title_sentiment'] == 'Negative']['source_name'].value_counts().head(10)
 
     return negative
+
+
+def get_clean_text(text):
+    # Convert to lowercase and Remove special characters and mentions
+    text = text.lower()
+    text = re.sub(r'<@[^>]+>', '', text)
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
+    
+    # Tokenization using NLTK
+    tokens = word_tokenize(text)
+    
+    # Remove stopwords
+    stop_words = set(stopwords.words('english'))
+    tokens = [word for word in tokens if word not in stop_words]
+    
+    # Stemming using NLTK PorterStemmer
+    stemmer = PorterStemmer()
+    tokens = [stemmer.stem(word) for word in tokens]
+    
+    # Join tokens back into a single string
+    clean_text = ' '.join(tokens)
+    
+    return clean_text
