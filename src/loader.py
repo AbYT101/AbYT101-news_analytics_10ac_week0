@@ -12,6 +12,9 @@ class NewsDataLoader:
     a class that will load news related datasets when provided path
     
     '''
+    news_path = '../data/rating.csv'
+    traffic_path = '../data/traffic.csv'
+    domain_location_path = '../data/domains_location.csv'
     def __init__(self):
         '''
         data: Dictionary to store loaded data
@@ -23,8 +26,26 @@ class NewsDataLoader:
             self.data[path] = pd.read_csv(path)
         return self.data[path]
 
-   
+    def get_news_data(self):
+        '''
+        write a function to get all the news from the csv file
+        '''
+        
+        return pd.read_csv(self.news_path)
+    
+    def get_traffic_data(self):
+        '''
+        write a function to get all the traffic from the csv file
+        '''
+        
+        return pd.read_csv(self.traffic_path)
+      
+    def get_domain_location_data(self):
+        '''
+        write a function to get all the domain_location from the csv file
+        '''
 
+        return pd.read_csv(self.domain_location_path)
 
 
 if __name__ == "__main__":
