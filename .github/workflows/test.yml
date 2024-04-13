@@ -3,7 +3,7 @@ name: Test
 on:
   push:
     branches:
-      - task-02  
+      - main 
 
 jobs:
   analysis:
@@ -25,4 +25,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          python -m pytest tests/
+          python tests/tests.py
