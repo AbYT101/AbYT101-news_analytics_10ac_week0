@@ -5,12 +5,14 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import re
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
-# from loader import NewsDataLoader
-# loader = NewsDataLoader()
 
-# _news_data = loader.load_data('../data/rating.csv')
+analyzer = SentimentIntensityAnalyzer()
+def get_sentiment_score(text):
+    text_str = str(text)  # convert to a string
+    return analyzer.polarity_scores(text_str)['compound']
 
 
 def get_domain(url):
