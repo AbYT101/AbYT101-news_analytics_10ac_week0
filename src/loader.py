@@ -25,27 +25,25 @@ class NewsDataLoader:
         if(path not in self.data):
             self.data[path] = pd.read_csv(path)
         return self.data[path]
-
-    def get_news_data(self):
-        '''
-        write a function to get all the news from the csv file
-        '''
-        
-        return pd.read_csv(self.news_path)
     
-    def get_traffic_data(self):
-        '''
-        write a function to get all the traffic from the csv file
-        '''
-        
-        return pd.read_csv(self.traffic_path)
+
+    def get_news_data_path(self):        
+        return self.news_path
+    
+    def get_traffic_data_path(self):        
+        return self.traffic_path
+    
+    def get_domains_location_data_path(self):        
+        return self.domain_location_path
+    
+    def get_news_data(self):        
+        return pd.read_csv(self.get_news_data_path())
+    
+    def get_traffic_data(self):        
+        return pd.read_csv(self.get_traffic_data_path())
       
     def get_domain_location_data(self):
-        '''
-        write a function to get all the domain_location from the csv file
-        '''
-
-        return pd.read_csv(self.domain_location_path)
+        return pd.read_csv(self.get_domains_location_data_path())
 
 
 if __name__ == "__main__":
