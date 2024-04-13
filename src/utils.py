@@ -12,6 +12,11 @@ import re
 
 # _news_data = loader.load_data('../data/rating.csv')
 
+
+def get_domain(url):
+    return re.sub(r'^www.', '', re.sub(r'^https?://', '', url.split('/')[2]))
+
+
 def find_top_websites(data,url_column='url',top=10):
     data['domain'] = data[url_column].apply(lambda x: x.split('/')[2])
 
