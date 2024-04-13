@@ -15,13 +15,19 @@ This repository contains code for analyzing news data, including exploratory dat
 ## Usage
 
 Explore the notebooks in the notebooks/ directory to understand the analysis process.
-Run the notebooks or Python scripts in the src/ directory to perform analysis tasks.
+Run the notebooks or Python scripts in the src/ directory to perform loading tasks.
 Modify the code to fit your specific analysis requirements and datasets.
+
+### Configuration
+Configure the package by modifying the src/config.py file. Adjust parameters such as file paths, API keys, or any other configuration settings relevant to your use case.
+
+### Data Loading
+The package provides a data loader module (loader.py) in the src directory. Use this module to load your network data into a format suitable for analysis.
 
 ## Task Completion
 
 ### Task 1
-
+ 
     - Created a GitHub repository named news_correlation_analysis.
     - Cleaned up the starter python package on a separate branch named task-01 to implement Task 1.
     - Committed changes with descriptive commit messages and pushed my changes.
