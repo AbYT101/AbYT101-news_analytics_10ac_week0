@@ -5,12 +5,19 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import re
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
-# from loader import NewsDataLoader
-# loader = NewsDataLoader()
 
-# _news_data = loader.load_data('../data/rating.csv')
+analyzer = SentimentIntensityAnalyzer()
+def get_sentiment_score(text):
+    text_str = str(text)  # convert to a string
+    return analyzer.polarity_scores(text_str)['compound']
+
+
+def get_domain(url):
+    return re.sub(r'^www.', '', re.sub(r'^https?://', '', url.split('/')[2]))
+
 
 def find_top_websites(data,url_column='url',top=10):
     data['domain'] = data[url_column].apply(lambda x: x.split('/')[2])
