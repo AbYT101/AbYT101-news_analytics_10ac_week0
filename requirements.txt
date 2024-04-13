@@ -1,5 +1,16 @@
+numpy>=1.18.5
+spacy>=3.0.1
+spacy-transformers>=1.1.6
+nltk>=3.6.1
+scikit-learn>=1.0
+scipy>=1.7.3
+psutil>=5.8.0
 matplotlib==3.8.0
 nltk==3.8.1
 pandas==1.5.3
 pick==2.2.0
 seaborn==0.13.0
+vaderSentiment==3.3.2
+keybert==0.8.4
+wordcloud==1.9.3
+mlflow==2.11.3

@@ -94,4 +94,5 @@ MANIFEST
 .envrc
 .venv
 
-# Github
+# Node modules
+dashboard/node_modules
